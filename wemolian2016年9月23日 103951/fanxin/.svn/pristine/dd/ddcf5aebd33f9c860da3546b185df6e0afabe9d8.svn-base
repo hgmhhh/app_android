@@ -1,0 +1,57 @@
+package com.wemolian.app.wml;
+
+import com.easemob.chat.EMMessage;
+import com.wemolian.app.R;
+import com.wemolian.app.activity.BaseActivity;
+
+import android.os.Bundle;
+import android.view.View;
+
+public class ServiceFeedbackActivity extends BaseActivity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_service_and_feedback);
+		setStatus(findViewById(R.id.title));
+		
+	}
+
+	@Override
+	protected void setStatus(View titleView) {
+		// TODO Auto-generated method stub
+		super.setStatus(titleView);
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+
+	@Override
+	public void setScanPage(View titleView) {
+		// TODO Auto-generated method stub
+		super.setScanPage(titleView);
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+
+	@Override
+	protected void notifyNewMessage(EMMessage message) {
+		// TODO Auto-generated method stub
+		super.notifyNewMessage(message);
+	}
+
+	@Override
+	public void back(View view) {
+		// TODO Auto-generated method stub
+		super.back(view);
+	}
+
+}

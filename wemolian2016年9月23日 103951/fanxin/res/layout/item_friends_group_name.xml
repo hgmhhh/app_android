@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        <RelativeLayout
+        android:id="@+id/id_contact_my_friends_image_btn"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#e8e8eb"
+        android:clickable="true" >
+
+        <ImageView
+            android:id="@+id/iv_friend_group"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:src="@drawable/icon_show_list" />
+
+        <TextView
+            android:id="@+id/tv_friend_group_cname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@id/iv_friend_group"
+            android:text="家庭"
+            android:textColor="#4a4a58"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

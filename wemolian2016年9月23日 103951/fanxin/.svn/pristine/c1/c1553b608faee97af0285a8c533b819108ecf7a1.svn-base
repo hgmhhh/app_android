@@ -1,0 +1,589 @@
+package com.wemolian.app.wml;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import android.R.bool;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.Spannable;
+import android.text.TextWatcher;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.alibaba.fastjson.JSONObject;
+import com.wemolian.app.R;
+import com.wemolian.app.R.color;
+import com.wemolian.app.activity.BaseActivity;
+import com.wemolian.app.entity.Constant;
+import com.wemolian.app.wml.others.LoadDataFromServer;
+import com.wemolian.app.wml.others.LoadDataFromServer.DataCallBack;
+import com.wemolian.app.wml.profile.ProfileAddNewCardActivity;
+
+public class RegisterUpdateActivity extends BaseActivity {
+	
+	
+	int tag = 0;
+	public static final int REGISTER_UPDATE_REGION = 11;
+	
+	ProgressDialog dialog;
+	
+	private ImageView iv_regist_update_head;
+	private EditText et_regist_update_usercname;
+	private TextView tv_regist_update_user_sex;
+	private TextView tv_regist_update_region;
+	private LinearLayout ll_regist_update_user_sex;
+	private LinearLayout ll_regist_update_region;
+	private EditText et_regist_update_autograph;
+	private TextView et_regist_update_user_phonenumber;
+	private Button btn_register_update_esc;
+	private Button btn_register_update_ok;
+
+	
+	private PopupWindow popupWindow;
+	/**
+	 * 文件上传结果，默认为false
+	 */
+	private boolean uploadResult = false;
+	
+	private String file = null;
+	private String imageName;
+	private static final int PHOTO_REQUEST_TAKEPHOTO = 1;// 拍照
+	private static final int PHOTO_REQUEST_GALLERY = 2;// 从相册中选择
+	private static final int PHOTO_REQUEST_CUT = 3;// 结果
+	
+	Map<String, String> userMap = new HashMap<String, String>();
+	/**屏幕宽度*/
+	int screenWidth;
+	View parentView;
+	
+	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setContentView(R.layout.activity_register_update);
+		setStatus(findViewById(R.id.title));
+		parentView = getLayoutInflater().inflate(R.layout.activity_add_new_bankcard, null);
+		dialog = new ProgressDialog(RegisterUpdateActivity.this);
+		Intent intent = getIntent();// getIntent将该项目中包含的原始intent检索出来，将检索出来的intent赋值给一个Intent类型的变量intent
+		Bundle bundle = intent.getExtras();// .getExtras()得到intent所附带的额外数据
+		String password = bundle.getString("password");// getString()返回指定key的值
+		String userEName = bundle.getString("userEName");// getString()返回指定key的值
+		DisplayMetrics  dm = new DisplayMetrics();    
+	      //取得窗口属性    
+	      getWindowManager().getDefaultDisplay().getMetrics(dm);    
+	         
+	      //窗口的宽度    
+	      screenWidth = dm.widthPixels; 
+		initView();
+		initData(userEName, password);
+	}
+
+
+	// 初始化
+	private void initView() {
+		iv_regist_update_head = (ImageView) findViewById(R.id.iv_regist_update_head);
+		et_regist_update_usercname = (EditText) findViewById(R.id.et_regist_update_usercname);
+		tv_regist_update_user_sex = (TextView) findViewById(R.id.tv_regist_update_user_sex);
+		tv_regist_update_region = (TextView) findViewById(R.id.tv_regist_update_region);
+		ll_regist_update_user_sex = (LinearLayout) findViewById(R.id.ll_regist_update_user_sex);
+		ll_regist_update_region = (LinearLayout) findViewById(R.id.ll_regist_update_region);
+		et_regist_update_autograph = (EditText) findViewById(R.id.et_regist_update_autograph);
+		btn_register_update_esc = (Button) findViewById(R.id.btn_register_update_esc);
+		btn_register_update_ok = (Button) findViewById(R.id.btn_register_update_ok);
+		et_regist_update_user_phonenumber = (TextView) findViewById(R.id.et_regist_update_user_phonenumber);
+	}
+
+	private void initData(final String userEName, final String password) {
+		et_regist_update_user_phonenumber.setText(userEName);
+		et_regist_update_autograph.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				 Editable text = et_regist_update_autograph.getText(); 
+				 CharSequence hintText = et_regist_update_autograph.getHint();
+				 Spannable spanText;
+				 if(text != null && text.toString().trim().length() > 0){
+					 spanText = text; 
+				 }else{
+					 spanText =  Spannable.Factory.getInstance().newSpannable(hintText);
+					 
+				 }
+				 Selection.setSelection(spanText, spanText.length());
+			}
+		});
+		ll_regist_update_user_sex.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				final PopupWindow pop = new PopupWindow(RegisterUpdateActivity.this);
+				LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		        View conentView = inflater.inflate(R.layout.pop_sex, null);
+		        
+		        pop.setWidth(screenWidth * 4/5);
+				pop.setHeight(LayoutParams.WRAP_CONTENT);
+				pop.setBackgroundDrawable(new BitmapDrawable());
+				pop.setFocusable(true);
+				backgroundAlpha(0.5f);  
+				pop.setOutsideTouchable(true);
+				pop.setContentView(conentView);
+				pop.showAtLocation(parentView, Gravity.CENTER, 0, 0);
+				// 设置SelectPicPopupWindow弹出窗体动画效果
+//				pop.setAnimationStyle(R.style.AnimationPreview);
+			    pop.setOnDismissListener(new poponDismissListener());  
+			    
+			    RelativeLayout re_sex_man = (RelativeLayout) conentView.findViewById(R.id.re_sex_man);
+			    re_sex_man.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						tv_regist_update_user_sex.setText("男");
+						pop.dismiss();
+					}
+				});
+			    RelativeLayout re_sex_woman = (RelativeLayout) conentView.findViewById(R.id.re_sex_woman);
+			    re_sex_woman.setOnClickListener(new OnClickListener() {
+			    	
+			    	@Override
+			    	public void onClick(View v) {
+			    		tv_regist_update_user_sex.setText("女");
+			    		pop.dismiss();
+			    	}
+			    });
+			}
+		});
+		ll_regist_update_region.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivityForResult(
+						new Intent(RegisterUpdateActivity.this, UpdateRegionActivity.class)
+						.putExtra("activity", "RegisterUpdate")
+						, REGISTER_UPDATE_REGION);
+			}
+		});
+		iv_regist_update_head.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showCamera();
+			}
+		});
+
+		btn_register_update_esc.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				et_regist_update_usercname.setText("");
+				tv_regist_update_user_sex.setText("");
+				tv_regist_update_region.setText("");
+				et_regist_update_autograph.setText("");
+				Toast.makeText(RegisterUpdateActivity.this, "esc",
+						Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		btn_register_update_ok.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if(!checkTag()){
+					Toast.makeText(RegisterUpdateActivity.this, "请将信息填写完整", Toast.LENGTH_LONG).show();
+					return;
+				}
+                dialog.setMessage("正在提交请求……");
+                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                dialog.show();
+                
+				Map<String, String> fileMap = new HashMap<String, String>();
+				
+				
+//				final Map<String, String> files = new HashMap<String, String>();
+
+				String userCName = et_regist_update_usercname.getText()
+						.toString().trim();
+				String userSex = tv_regist_update_user_sex.getText().toString()
+						.trim();
+				String userRegion = tv_regist_update_region.getText().toString()
+						.trim();
+				String autoGraph = et_regist_update_autograph.getText()
+						.toString().trim();
+				userMap.put("userEName", userEName);
+				userMap.put("userRegion", userRegion);
+				userMap.put("userCName", userCName);
+				userMap.put("userSex", userSex);
+				userMap.put("Autograph", autoGraph);
+				//头像文件不为空时，先上传头像文件，再完善用户信息
+				if ( file != null) {
+					fileMap.put("fileStatus", "headImgPath");
+					fileMap.put("userEName", userEName);
+					fileMap.put("file", file);
+					fileMap.put("image", imageName);
+					uplodaHeadImg(fileMap);
+					//文件为空时，只上不上传文件
+				}
+				/**
+				 * 上传的头像文件为空时，直接完善信息
+				 */
+				else{
+					Toast.makeText(RegisterUpdateActivity.this, "请选择头像", Toast.LENGTH_SHORT).show();
+//					uploadUserMesByUserEName(userMap);
+				}
+		
+				
+			}
+
+		});
+	}
+
+	/**
+	 * 检查信息是否完善
+	 */
+	private boolean checkTag() {
+		int color = 0Xffff0000;
+		int normalColor = 0Xff232323;
+		et_regist_update_usercname.setHintTextColor(normalColor);
+		et_regist_update_usercname.setTextColor(normalColor);
+		tv_regist_update_region.setHintTextColor(normalColor);
+		tv_regist_update_region.setTextColor(normalColor);
+		tv_regist_update_user_sex.setHintTextColor(normalColor);
+		tv_regist_update_user_sex.setTextColor(normalColor);
+		et_regist_update_autograph.setHintTextColor(normalColor);
+		et_regist_update_autograph.setTextColor(normalColor);
+		et_regist_update_user_phonenumber.setHintTextColor(normalColor);
+		et_regist_update_user_phonenumber.setTextColor(normalColor);
+		if (!(et_regist_update_usercname.getText().toString().trim().length() > 0)) {
+			et_regist_update_usercname.setHintTextColor(color);
+			et_regist_update_usercname.setTextColor(color);
+			return false;
+		}
+		if(!(tv_regist_update_user_sex.getText().toString().trim().length() > 0)){
+			tv_regist_update_user_sex.setHintTextColor(color);
+			tv_regist_update_user_sex.setTextColor(color);
+			return false;
+		}
+		if(!(tv_regist_update_region.getText().toString().trim().length() > 0)){
+			tv_regist_update_region.setHintTextColor(color);
+			tv_regist_update_region.setTextColor(color);
+			return false;
+		}
+		if(!(et_regist_update_autograph.getText().toString().trim().length() > 0)){
+			et_regist_update_autograph.setHintTextColor(color);
+			et_regist_update_autograph.setTextColor(color);
+			return false;
+		}
+		if(!(et_regist_update_user_phonenumber.getText().toString().trim().length() > 0)){
+			et_regist_update_user_phonenumber.setHintTextColor(color);
+			et_regist_update_user_phonenumber.setTextColor(color);
+			return false;
+		}
+		return true;
+	}
+	
+	
+	
+	/**
+	 * 更新用户信息
+	 * 
+	 * @param map
+	 */
+	protected void uploadUserMesByUserEName(Map<String, String> map) {
+		LoadDataFromServer task = new LoadDataFromServer(
+				RegisterUpdateActivity.this, Constant.URL_REGISTER_UPDATE, map);
+		task.getData(new DataCallBack() {
+			
+			@Override
+			public void onDataCallBack(JSONObject registData) {
+				//数据请求成功
+				if(registData != null && registData.getBoolean("success")){
+					JSONObject data = registData.getJSONObject("data");
+					int code = data.getInteger("code");
+					
+					//数据更新成功
+					if(code == 200){
+						runOnUiThread(new Runnable() {
+							public void run() {
+								dialog.setMessage(getString(R.string.regist_update_success));
+							}
+						});
+						if (!RegisterUpdateActivity.this.isFinishing())
+							dialog.dismiss();
+						Toast.makeText(RegisterUpdateActivity.this, R.string.regist_update_success, Toast.LENGTH_LONG).show();
+						//数据更新成功后，跳转到登录页面
+                        //从一个activity跳转到另一个activity  
+                        startActivity(new Intent(RegisterUpdateActivity.this, LoginActivity.class)); 
+					}else if(code == 400){
+						runOnUiThread(new Runnable() {
+							public void run() {
+								dialog.setMessage(getString(R.string.regist_update_failed));
+							}
+						});
+						if (!RegisterUpdateActivity.this.isFinishing())
+							dialog.dismiss();
+					}else{
+						Toast.makeText(RegisterUpdateActivity.this, "未知异常！", Toast.LENGTH_SHORT).show();
+					}
+				}else{
+					Toast.makeText(RegisterUpdateActivity.this, "请求服务器失败！", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 上传头像文件 返回上传结果代码
+	 * 
+	 * @param map
+	 * @param files
+	 */
+	protected void uplodaHeadImg(Map<String, String> map) {
+
+		// List<String> list = new ArrayList<String>();
+		// list.add("/sdcard/wemolian/" + imageName);
+
+		LoadDataFromServer task = new LoadDataFromServer(
+				RegisterUpdateActivity.this, Constant.URL_UPLOADFILE, map);
+
+		task.getData(new DataCallBack() {
+
+			@Override
+			public void onDataCallBack(JSONObject registData) {
+				//
+				if (registData.getBoolean("success")) {
+					JSONObject data = registData.getJSONObject("data");
+					int code = data.getInteger("code");
+					// 文件上传成功
+					if (code == 200) {
+//						uploadResult = true;
+						//更新用户信息
+						uploadUserMesByUserEName(userMap);
+						// 文件上传失败
+					} else if (code == 400) {
+						Toast.makeText(RegisterUpdateActivity.this, "头像上传失败！",
+								Toast.LENGTH_SHORT).show();
+						if (!RegisterUpdateActivity.this.isFinishing())
+							dialog.dismiss();
+					}
+				} else {
+					Toast.makeText(RegisterUpdateActivity.this, "请求服务器失败！",
+							Toast.LENGTH_SHORT).show();
+					if (!RegisterUpdateActivity.this.isFinishing())
+						dialog.dismiss();
+				}
+			}
+		});
+		/**
+		 * 程序执行完成后，将异步执行标识改为true，避免程序一直循环
+		 */
+	}
+
+	/**
+	 * 拍照部分
+	 */
+	protected void showCamera() {
+
+		final AlertDialog dlg = new AlertDialog.Builder(this).create();
+		dlg.show();
+		Window window = dlg.getWindow();
+		// *** 主要就是在这里实现这种效果的.
+		// 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
+		window.setContentView(R.layout.alertdialog);
+		// 为确认按钮添加事件,执行退出应用操作
+		TextView tv_paizhao = (TextView) window.findViewById(R.id.tv_content1);
+		tv_paizhao.setText("拍照");
+		tv_paizhao.setOnClickListener(new View.OnClickListener() {
+			@SuppressLint("SdCardPath")
+			public void onClick(View v) {
+
+				imageName = getNowTime() + ".png";
+
+				file = "/sdcard/wemolian/" + imageName;
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				// 指定调用相机拍照后照片的储存路径
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,
+						Uri.fromFile(new File("/sdcard/wemolian/", imageName)));
+				startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+				dlg.cancel();
+			}
+		});
+		TextView tv_xiangce = (TextView) window.findViewById(R.id.tv_content2);
+		tv_xiangce.setText("相册");
+		tv_xiangce.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				getNowTime();
+				imageName = getNowTime() + ".png";
+				file = "/sdcard/wemolian/" + imageName;
+				Intent intent = new Intent(Intent.ACTION_PICK, null);
+				intent.setDataAndType(
+						MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+				startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
+
+				dlg.cancel();
+			}
+		});
+
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	private String getNowTime() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MMddHHmmssSS");
+		return dateFormat.format(date);
+	}
+
+	@SuppressLint("SdCardPath")
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case PHOTO_REQUEST_TAKEPHOTO:
+
+				startPhotoZoom(
+						Uri.fromFile(new File("/sdcard/wemolian/", imageName)),
+						480);
+				break;
+
+			case PHOTO_REQUEST_GALLERY:
+				if (data != null)
+					startPhotoZoom(data.getData(), 480);
+				break;
+
+			case PHOTO_REQUEST_CUT:
+				// BitmapFactory.Options options = new BitmapFactory.Options();
+				//
+				// /**
+				// * 最关键在此，把options.inJustDecodeBounds = true;
+				// * 这里再decodeFile()，返回的bitmap为空
+				// * ，但此时调用options.outHeight时，已经包含了图片的高了
+				// */
+				// options.inJustDecodeBounds = true;
+				Bitmap bitmap = BitmapFactory.decodeFile("/sdcard/wemolian/"
+						+ imageName);
+				iv_regist_update_head.setImageBitmap(bitmap);
+
+				break;
+				
+			case REGISTER_UPDATE_REGION:
+				String newRegion = data.getExtras().getString("result");
+				tv_regist_update_region.setText(newRegion);
+            	Toast.makeText(this, "更新用户地区为：" + newRegion , Toast.LENGTH_SHORT).show();
+				break;
+
+			}
+			super.onActivityResult(requestCode, resultCode, data);
+
+		}
+	}
+
+	@SuppressLint("SdCardPath")
+	private void startPhotoZoom(Uri uri1, int size) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri1, "image/*");
+		// crop为true是设置在开启的intent中设置显示的view可以剪裁
+		intent.putExtra("crop", "true");
+
+		// aspectX aspectY 是宽高的比例
+		intent.putExtra("aspectX", 1);
+		intent.putExtra("aspectY", 1);
+
+		// outputX,outputY 是剪裁图片的宽高
+		intent.putExtra("outputX", size);
+		intent.putExtra("outputY", size);
+		intent.putExtra("return-data", false);
+
+		intent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(new File("/sdcard/wemolian/", imageName)));
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.PNG.toString());
+		intent.putExtra("noFaceDetection", true); // no face detection
+		startActivityForResult(intent, PHOTO_REQUEST_CUT);
+	}
+    /** 
+     * 设置添加屏幕的背景透明度 
+     * @param bgAlpha 
+     */  
+    public void backgroundAlpha(float bgAlpha)  
+    {  
+        WindowManager.LayoutParams lp = getWindow().getAttributes();  
+        lp.alpha = bgAlpha; //0.0-1.0  
+                getWindow().setAttributes(lp);  
+    }  
+    
+    /** 
+     * 添加新笔记时弹出的popWin关闭的事件，主要是为了将背景透明度改回来 
+     * @author cg 
+     * 
+     */  
+    class poponDismissListener implements PopupWindow.OnDismissListener{  
+  
+        @Override  
+        public void onDismiss() {  
+            // TODO Auto-generated method stub  
+            //Log.v("List_noteTypeActivity:", "我是关闭事件");  
+            backgroundAlpha(1f);  
+        }  
+          
+    }  
+	
+	  //隐藏软键盘
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        // TODO Auto-generated method stub
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            System.out.println("down");
+            if (RegisterUpdateActivity.this.getCurrentFocus() != null) {
+                if (RegisterUpdateActivity.this.getCurrentFocus().getWindowToken() != null) {
+                    imm.hideSoftInputFromWindow(RegisterUpdateActivity.this.getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        }
+        return super.onTouchEvent(event);
+    }
+    
+    
+    
+    @Override
+    public void back(View view) {
+//    	super.back(view);
+//    	et_regist_update_usercname.setText("");
+//		et_regist_update_user_sex.setText("");
+//		et_regist_update_region.setText("");
+//		et_regist_update_autograph.setText("");
+		Toast.makeText(RegisterUpdateActivity.this, "请完善信息",
+				Toast.LENGTH_SHORT).show();
+    }
+}

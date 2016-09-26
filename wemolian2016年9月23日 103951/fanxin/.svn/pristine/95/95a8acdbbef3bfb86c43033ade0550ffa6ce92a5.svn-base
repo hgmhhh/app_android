@@ -1,0 +1,199 @@
+package com.wemolian.app.wml;
+
+import java.util.ArrayList;
+
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+
+import com.wemolian.app.R;
+import com.wemolian.app.activity.BaseActivity;
+import com.wemolian.app.video.util.ImageItem;
+import com.wemolian.app.widget.photoview.PhotoView;
+import com.wemolian.app.wml.FragmentFunc.MyPageAdapter;
+import com.wemolian.app.wml.circle.zoom.ViewPagerFixed;
+
+/**
+ * 在开屏页结束后，跳转到登录和注册的选择界面
+ * @author zhangyun
+ *
+ */
+public class ChooseActivity extends BaseActivity {
+	private ViewPagerFixed vpf_pager;
+	private MyPageAdapter adapter;
+	private ArrayList<Bitmap> tempSelectBitmap = new ArrayList<Bitmap>();
+	private ArrayList<View> listImages = new ArrayList<View>();
+	Drawable agu;
+	Drawable agt;
+	ImageView page1;
+	ImageView page2;
+	ImageView page3;
+	
+	Button btn_login,btn_register;
+	
+	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setContentView(R.layout.activity_login_temp);
+		page1 = (ImageView) findViewById(R.id.iv_page1);
+        page2 = (ImageView) findViewById(R.id.iv_page2);
+        page3 = (ImageView) findViewById(R.id.iv_page3);
+        agu = getResources().getDrawable(R.drawable.agu);
+        agt = getResources().getDrawable(R.drawable.agt);
+        btn_login = (Button) findViewById(R.id.btn_login);
+        btn_register = (Button) findViewById(R.id.btn_register);
+        listImages = new ArrayList<View>();
+        for (int i = 0; i < 3; i++) {
+        	Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.logo_wemolian);
+			tempSelectBitmap.add(bmp);
+		}
+        DisplayMetrics  dm = new DisplayMetrics();    
+        //取得窗口属性    
+        getWindowManager().getDefaultDisplay().getMetrics(dm);    
+      //窗口的宽度    
+        int screenWidth = dm.widthPixels;    
+           
+        //窗口高度    
+        int screenHeight = dm.heightPixels; 
+        for (int i = 0; i < tempSelectBitmap.size(); i++) {
+            Bitmap bm = tempSelectBitmap.get(i);
+            PhotoView img = new PhotoView(false,this);
+//    		img.setBackgroundColor(0xff000000);
+    		img.setImageBitmap(bm);
+    		img.setScaleType(ScaleType.CENTER_INSIDE);
+    		img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+    				LayoutParams.MATCH_PARENT));
+    		img.setMaxHeight(screenHeight);
+    		img.setMinimumHeight(screenHeight);
+    		img.setMaxWidth(screenWidth);
+    		img.setMinimumWidth(screenWidth);
+            listImages.add(img);
+            }
+		vpf_pager = (ViewPagerFixed) findViewById(R.id.vpf_func_carousel_images);
+		adapter = new MyPageAdapter(listImages);
+        vpf_pager.setAdapter(adapter);
+        vpf_pager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.ui_10_dip));
+        btn_login.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(ChooseActivity.this,LoginActivity.class));
+				finish();
+			}
+		});
+        btn_register.setOnClickListener(new OnClickListener() {
+        	
+        	@Override
+        	public void onClick(View v) {
+        		startActivity(
+        				new Intent(ChooseActivity.this,
+						RegisterActivity.class)
+        				.putExtra("activity", "register")
+        				
+        				);        	}
+        });
+	}
+	
+	
+	
+	
+class MyPageAdapter extends PagerAdapter {
+
+		
+		
+		
+		private ArrayList<View> listViews;
+
+		int imgPage;
+		boolean isFirstLoad = true;
+		private int size;
+		int i = 0;
+		public MyPageAdapter(ArrayList<View> listViews) {
+			this.listViews = listViews;
+			size = listViews == null ? 0 : listViews.size();
+		}
+
+		public void setListViews(ArrayList<View> listViews) {
+			this.listViews = listViews;
+			size = listViews == null ? 0 : listViews.size();
+		}
+
+		public int getCount() {
+			return size;
+		}
+
+		public int getItemPosition(Object object) {
+			return POSITION_NONE;
+		}
+
+		public void destroyItem(View arg0, int arg1, Object arg2) {
+			if(arg1 == 2){
+				imgPage = 0;
+				
+			}else if(arg1 == 0){
+				imgPage = 2;
+			}
+			setPageTag();
+			isFirstLoad = false;
+			((ViewPagerFixed) arg0).removeView(listViews.get(arg1 % size));
+		}
+
+		public void finishUpdate(View view) {
+		}
+
+		public Object instantiateItem(View arg0, int arg1) {
+			imgPage = 1;
+			
+			try {
+				((ViewPagerFixed) arg0).addView(listViews.get(arg1 % size), 0);
+
+			} catch (Exception e) {
+			}
+			setPageTag();
+			i++;
+			if(i >= 2){
+				isFirstLoad =false;
+				i = 5;
+			}
+			return listViews.get(arg1 % size);
+		}
+
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == arg1;
+		}
+		public void setPageTag(){
+			if(imgPage == 0){
+				page1.setImageDrawable(agu);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agt);
+			}else if(imgPage == 1){
+				page1.setImageDrawable(agt);
+				page2.setImageDrawable(agu);
+				page3.setImageDrawable(agt);
+			}else if(imgPage == 2){
+				page1.setImageDrawable(agt);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agu);
+			}
+			if(isFirstLoad){
+				page1.setImageDrawable(agu);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agt);
+			}
+		}
+
+	}
+}

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="common_top_bar_color">#f4a0ba</color>
+    <color name="btn_login_normal">#007086</color>
+    <color name="btn_login_pressed">#303744</color>
+    <color name="btn_logout_normal">#d33f3f</color>
+    <color name="btn_logout_pressed">#DA5A4D</color>
+    <color name="btn_register_normal">#2dafa3</color>
+    <color name="btn_register_pressed">#4ebcd3</color>
+    <color name="common_bottom_bar_normal_bg">#2d2f31</color>
+    <color name="common_bottom_bar_selected_bg">#161718</color>
+    <color name="common_botton_bar_blue">#2ea7e0</color>
+    <color name="common_bg">#fcfcfc</color>
+    <color name="btn_pressed_green_solid">#B6DA53</color>
+    <color name="divider_list">#cccccc</color>
+    <color name="top_bar_normal_bg">#4ebcd3</color>
+    <color name="error_item_color">#F6EBE6</color>
+    <color name="bottom_bar_normal_bg">#2D2F31</color>
+    <color name="bottom_text_color_normal">#ffffff</color>
+    <color name="btn_white_normal">#f7f8f8</color>
+    <color name="btn_white_pressed">#b5b5b6</color>
+    <color name="btn_green_noraml">#68C270</color>
+    <color name="btn_green_pressed">#6FCD78</color>
+    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="btn_gray_pressed_status">#b5b5b6</color>
+    <color name="btn_gray_pressed">#666667</color>
+    <color name="btn_blue_normal">#1e90ff</color>
+    <color name="btn_blue_pressed">#0066FF</color>
+    <color name="orange">#FFA500</color>
+    <color name="gray_pressed">#b5b5b6</color>
+    <color name="gray_normal">#666667</color>
+    <color name="grid_state_pressed">#1Affffff</color>
+    <color name="grid_state_focused">#80000000</color>
+    <color name="voip_interface_text_color">#bababa</color>
+    <color name="black_deep">#FF000000</color>
+    <color name="hint_text_color">#dedede</color>
+    <color name="text_color">#ffffff</color>
+    <color name="text_black_color">#000000</color>
+    <color name="text_232323_color">#232323</color>
+    <color name="text_f4a0ba_color">#f4a0ba</color>
+    
+    
+    
+    <!-- 主题背景 -->
+    <color name="common_bg_color">#EBEBEB</color>
+    <!-- 背景颜色 -纯白 -->
+    <color name="common_bg_fff_color">#ffffff</color>
+    <!-- 右上角加号线条的背景 -->
+	<color name="popupwindow_add_line_bg_color">#ffffff</color>
+	<!-- fragment界面背景 -->
+	<color name="fragment_bg_color">#eeeeee</color>
+	<color name="appname_text_color">#ffffff</color>
+    <!-- 透明颜色 -->
+    <color name="none_color">#00000000</color>
+    <!-- 手势锁 -->
+    <color name="gesture_background">#eeeeee</color>
+    <color name="color_hei_8">#00000000</color>
+	<color name="gesture_line_color">#000000</color>
+    <drawable name="trans">@color/color_hei_8</drawable>
+    <!-- 发送 字体颜色 -->
+	<color name="send_msg_text_color">#666666</color>
+
+	
+	
+    <!-- 收藏item文字颜色 -->
+    <!-- 昵称 -->
+    <color name="collection_usercname_color">#232323</color>
+    <!-- 时间 -->
+    <color name="collection_time_color">#ff6666</color>
+    
+    
+    
+	<!-- 发表动态背景 -->
+	<color name="circle_common_add_bgcolor">#f4a0ba</color>
+	<color name="circle_common_text_color">#f4a0ba</color>
+	<color name="circle_common_add_line_color">#ffffff</color>
+	<color name="circle_common_add_text_color">#ffffff</color>
+	<color name="circle_common_add_content_color">#000000</color>
+	<color name="circle_common_add_content_hint_color">#ffffff</color>
+	
+	<!-- 紫色文本控件背景 -->
+	<color name="common_violet_bg_color">#f4a0ba</color>
+    <!-- 二维码 -->
+    <color name="contents_text">#ff000000</color>
+  <color name="encode_view">#ffffffff</color>
+  <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+  <color name="result_minor_text">#ffc0c0c0</color>
+  <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
+  <color name="result_text">#ffffffff</color>
+  <color name="result_view">#b0000000</color>
+  <color name="status_text">#ffffffff</color>
+  <color name="transparent">#00000000</color>
+  <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+  <color name="viewfinder_mask">#60000000</color>
+</resources>

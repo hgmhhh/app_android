@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="first" cname="一级菜单">
+        <item>美妆</item>
+        <item>食品</item>
+        <item>服装</item>
+        <item>手机数码</item>
+        <item>鞋靴</item>
+        <item>珠宝配饰</item>
+        <item>母婴</item>
+        <item>户外运动</item>
+        <item>家居</item>
+        <item>其他</item>
+    </string-array>
+
+</resources>

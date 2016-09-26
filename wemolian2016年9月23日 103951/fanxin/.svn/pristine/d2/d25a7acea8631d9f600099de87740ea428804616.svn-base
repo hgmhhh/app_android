@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/common_top_bar_color" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:onClick="back"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/top_bar_back" />
+
+            <View
+                android:id="@+id/view_temp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/iv_back"
+                android:background="#14191A" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/view_temp"
+                android:text="信息完善"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btn_register_update_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:text="完成"
+                android:textColor="#ffffff"
+                android:textSize="42px" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+		
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="23dp"
+            android:paddingBottom="23dp" >
+
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="恭喜你注册成功，请完善用户信息"/>
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/iv_regist_update_head"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/register_headimg" />
+        </RelativeLayout>
+<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="29dp"
+            android:paddingRight="29dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="@color/common_bg_fff_color"  >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个性帐号" />
+
+            <TextView
+                android:id="@+id/et_regist_update_user_phonenumber"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:hint="帐号|手机号"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_232323_color"
+                android:textColorHint="@color/text_232323_color"
+                android:textSize="46px" />
+            
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="29dp"
+            android:paddingRight="29dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="@color/common_bg_fff_color" >
+
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"/>
+            <EditText
+                android:id="@+id/et_regist_update_usercname"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:hint="请填写昵称"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_232323_color"
+                android:textColorHint="@color/text_232323_color"
+                android:textSize="46px" />
+
+        </LinearLayout>
+
+        
+        <LinearLayout
+            android:id="@+id/ll_regist_update_user_sex"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="29dp"
+            android:paddingRight="29dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="@color/common_bg_fff_color"  >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别" />
+
+            <TextView
+                android:id="@+id/tv_regist_update_user_sex"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:hint="性别"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_232323_color"
+                android:textColorHint="@color/text_232323_color"
+                android:textSize="46px" />
+            
+
+        </LinearLayout>
+
+        
+        <LinearLayout
+            android:id="@+id/ll_regist_update_region"
+             android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="29dp"
+            android:paddingRight="29dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="@color/common_bg_fff_color" >
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="地区" />
+
+            <TextView
+                android:id="@+id/tv_regist_update_region"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:hint="地区"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_232323_color"
+                android:textColorHint="@color/text_232323_color"
+                android:textSize="46px" />
+
+        </LinearLayout>
+
+        <LinearLayout
+             android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="29dp"
+            android:paddingRight="29dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:background="@color/common_bg_fff_color" >
+<TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个性签名"/>
+            <EditText
+                android:id="@+id/et_regist_update_autograph"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:hint="个性签名"
+                android:background="@null"
+                android:gravity="right|center_vertical"
+                android:singleLine="true"
+                android:textColor="@color/text_232323_color"
+                android:textColorHint="@color/text_232323_color"
+                android:textSize="46px" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="60px"
+            android:visibility="gone"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_register_update_esc"
+                android:layout_width="109dp"
+                android:layout_height="88px"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="96px"
+                android:background="@drawable/btn_register_update_esc"
+                android:paddingBottom="7dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="109dp"
+                android:layout_height="88px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="96px"
+                android:background="@drawable/btn_register_update_ok"
+                android:padding="8dp"
+                android:textColor="#353535"
+                android:textSize="42px" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

@@ -1,0 +1,165 @@
+package com.wemolian.app.wml.circle.adapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.wemolian.app.R;
+import com.wemolian.app.WeMoLianApplication;
+import com.wemolian.app.domain.Contacts;
+import com.wemolian.app.entity.LocalDBKey;
+import com.wemolian.app.wml.circle.AddCircleFriendActivity;
+import com.wemolian.app.wml.entity.Comment;
+import com.wemolian.app.wml.others.LocalUserInfo;
+
+import android.R.bool;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+/**
+ * 圈子评论列表适配器
+ * @author 张云
+ *
+ */
+public class CircleFriendCommentAdapter extends BaseAdapter {
+
+	private List<Comment> list;
+	Context context;
+	PopupWindow pop;
+	private View view;
+	
+	
+	public CircleFriendCommentAdapter(Context context,List<Comment> list) {
+		this.list = list;
+		this.context = context;
+	}
+
+	@Override
+	public int getCount() {
+		return list.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return position;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		if(convertView == null){
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_circle_comment, null);
+		}
+		initView();
+		//评论标识，初始false标识不是评论  --即：回复
+		boolean isComment = false;
+		String commentUserId = list.get(position).getUserId();
+		String commentTag = list.get(position).getTag();
+		String commentFriendId = list.get(position).getFriendId();
+		String commentContent = list.get(position).getContent();
+		
+		TextView tv_commentUserId = (TextView) convertView.findViewById(R.id.tv_circle_comment_id);
+		TextView tv_commentTag = (TextView) convertView.findViewById(R.id.tv_circle_comment_tag);
+		TextView tv_commentFriendId = (TextView) convertView.findViewById(R.id.tv_circle_comment_friend_id);
+		TextView tv_commentContent = (TextView) convertView.findViewById(R.id.tv_circle_comment_friend_content);
+		Comment comment = list.get(position);
+		String userExternalUse = LocalUserInfo.getInstance(context).getUserInfo(LocalDBKey.USER_COLUMN_NAME_EXTERNALUSE);
+		String commentUserCName = null;
+		//评论/回复的帐号是登录的帐号
+		if(commentUserId != null && commentUserId.equals(userExternalUse)){
+			commentUserCName = LocalUserInfo.getInstance(context).getUserInfo(LocalDBKey.USER_COLUMN_NAME_USERCNAME);
+			
+			//评论/回复的帐号是好友
+		}else{
+			Contacts user = new Contacts();
+			user.setExternalUse(commentUserId);
+			user = WeMoLianApplication.getInstance().getContact(user);
+			if(user != null){
+				commentUserCName =  user.getLabel();
+			}
+		}
+		tv_commentUserId.setText(commentUserCName);
+		//回复
+		if("0".equals(commentTag)){
+			isComment = true;
+		}
+		
+		//被评论/回复的帐号是登录的帐号
+		if(commentFriendId != null && commentFriendId.equals(userExternalUse)){
+			tv_commentFriendId.setText(
+					LocalUserInfo.getInstance(context).getUserInfo(LocalDBKey.USER_COLUMN_NAME_USERCNAME));
+			
+			//被评论/回复的帐号是好友
+		}else{
+			Contacts user = new Contacts();
+			user.setExternalUse(commentFriendId);
+			user = WeMoLianApplication.getInstance().getContact(user);
+			String userCName = null;
+			if(user != null){
+				if(user.getLabel() != null){
+					userCName = user.getLabel();
+				}else if(user.getUserRemark() != null){
+					userCName = user.getUserRemark();
+				}else{
+					userCName = user.getUserCName();
+				}
+			}
+			tv_commentFriendId.setText(userCName);
+		}
+		
+		//当为回复时
+		if(isComment){
+			tv_commentTag.setText("回复");
+			//评论时
+		}else{
+			tv_commentTag.setText("说");
+			tv_commentFriendId.setVisibility(View.GONE);
+		}
+		tv_commentContent.setText(commentContent);
+		convertView.setTag(commentFriendId);
+		final String friendId = commentFriendId;
+		final String cname = commentUserCName;
+//		convertView.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				System.out.println("commentUserId:" + friendId);
+//				Toast.makeText(context, "回复" + friendId + ":" + cname , Toast.LENGTH_SHORT).show();
+//			}
+//		});
+		
+		convertView.setTag(list.get(position));
+		return convertView;
+	}
+
+	private void initView() {
+		pop = new PopupWindow(context);
+		
+		
+		view = LayoutInflater.from(context).inflate(R.layout.item_circle_choose_img, null);
+//		view = context.getLayoutInflater().inflate(R.layout.item_circle_choose_img, null);
+		
+		pop.setWidth(LayoutParams.MATCH_PARENT);
+		pop.setHeight(LayoutParams.WRAP_CONTENT);
+		pop.setBackgroundDrawable(new BitmapDrawable());
+		pop.setFocusable(true);
+		pop.setOutsideTouchable(true);
+		pop.setContentView(view);		
+	}
+
+}

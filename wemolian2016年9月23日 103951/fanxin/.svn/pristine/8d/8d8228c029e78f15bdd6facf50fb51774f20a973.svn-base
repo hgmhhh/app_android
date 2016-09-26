@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fefefe"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/common_top_bar_color" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:onClick="back"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/top_bar_back" />
+
+            <View
+                android:id="@+id/view_temp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/iv_back"
+                android:background="#14191A" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/view_temp"
+                android:text="微商圈"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/iv_detail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/circle_top_right_icon" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/circle_weshop_business"
+            android:background="@drawable/circle_search_bg" >
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingLeft="20px"
+                android:paddingRight="20px"
+                android:singleLine="true" />
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle_search_icon" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/circle_weshop_business"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/circle_weshop_personal"
+            android:background="@drawable/circle_choose_right_bg"
+            android:text="商家"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/circle_weshop_personal"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:background="@drawable/circle_default_right_bg"
+            android:text="个人"
+            android:textColor="#232323"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dedede" />
+
+    <com.wemolian.app.wml.others.AutoListView
+        android:id="@+id/circle_weshop_listview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F9F9F9"
+        android:descendantFocusability="afterDescendants"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false" >
+    </com.wemolian.app.wml.others.AutoListView>
+
+    <LinearLayout
+        android:id="@+id/circle_weshop_comment_group"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:background="#dedede"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="1dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:paddingTop="4dp" >
+
+            <RelativeLayout
+                android:id="@+id/circle_weshop_edittext_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom" >
+
+                <com.wemolian.app.widget.PasteEditText
+                    android:id="@+id/circle_weshop_et_sendmessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:maxLines="3"
+                    android:minHeight="40dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="24dip"
+                    android:paddingTop="3dp"
+                    android:textSize="16sp" >
+
+                    <requestFocus />
+                </com.wemolian.app.widget.PasteEditText>
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_normal"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_chat_emoji_normal"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/iv_emoticons_checked"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_margin="1dip"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_chat_emoji_checked"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/circle_weshop_btn_send_comment"
+                android:layout_width="65dip"
+                android:layout_height="32dip"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/btn_sendmsg_bg"
+                android:onClick="sendComment"
+                android:text="发送" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

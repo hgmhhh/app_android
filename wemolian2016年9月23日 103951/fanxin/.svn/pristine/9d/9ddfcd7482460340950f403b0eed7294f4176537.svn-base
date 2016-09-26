@@ -1,0 +1,62 @@
+package com.wemolian.app.wml;
+
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wemolian.app.R;
+import com.wemolian.app.activity.BaseActivity;
+import com.wemolian.app.utils.LocaltionManager;
+
+/**
+ * 附近的人
+ * @author zhangyun
+ *
+ */
+public class NearbyUserActivity extends BaseActivity {
+
+	private TextView tv_showLocaltion;
+	private LocationManager locationManager;
+	private String locationProvider; 
+	private Double lat;
+	private Double lon;
+	private String region;
+	private String address;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_nearby_user);
+		setStatus(findViewById(R.id.title));
+		tv_showLocaltion = (TextView) findViewById(R.id.tv_show_localtion);
+//		getLocaltionManager();
+		Map<String, Object> map = LocaltionManager.getLocaltion(this);
+		lat = (Double) map.get("lat");
+		lon = (Double) map.get("lon");
+		region = (String) map.get("region");
+		address = (String) map.get("address");
+		showLocation();
+	}
+	
+	
+	
+ 
+	    /** 
+	     * 显示地理位置经度和纬度信息 
+	     * @param location 
+	     */  
+	    private void showLocation(){  
+	        String locationStr = "纬度：" + lat +"\n"   
+	                + "经度：" + lon +"\n" + "地区：" + region +"\n"  + "地址： " + address; 
+	        Toast.makeText(this, locationStr, Toast.LENGTH_SHORT).show(); 
+	        tv_showLocaltion.setText(locationStr);  
+	    }  
+	    
+}

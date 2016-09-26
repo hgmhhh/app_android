@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="onTouch" >
+    <LinearLayout 
+ 	    android:id="@+id/circle_friends_comment_group"
+ 	    android:layout_width="match_parent"
+ 	    android:layout_height="51dp"
+ 	    android:layout_alignParentBottom="true"
+ 	    android:gravity="center_horizontal"
+ 	    android:background="#dedede">
+
+ 		<LinearLayout
+ 		    android:layout_width="match_parent"
+ 		    android:layout_height="50dp"
+ 		    android:background="#ffffff"
+ 		    android:gravity="center_vertical"
+ 		    android:layout_marginTop="1dp"
+ 		    android:paddingTop="4dp" >
+
+ 		    <RelativeLayout
+ 		        android:id="@+id/circle_friends_edittext_layout"
+ 		        android:layout_width="0dp"
+ 		        android:layout_height="wrap_content"
+ 		        android:layout_marginBottom="3dp"
+ 		        android:layout_marginLeft="6dp"
+ 		        android:layout_marginRight="6dp"
+ 		        android:layout_marginTop="0dp"
+ 		        android:layout_weight="1"
+ 		        android:gravity="bottom" >
+
+ 		        <com.wemolian.app.widget.PasteEditText
+ 		            android:id="@+id/circle_friends_et_sendmessage"
+ 		            android:layout_width="match_parent"
+ 		            android:layout_height="wrap_content"
+ 		            android:maxLines="3"
+ 		            android:background="@null"
+ 		            android:minHeight="40dp"
+ 		            android:paddingBottom="3dp"
+ 		            android:paddingLeft="1dp"
+ 		            android:paddingRight="1dp"
+ 		            android:paddingTop="3dp"
+ 		            android:textSize="16sp" >
+
+ 		            <requestFocus />
+ 		        </com.wemolian.app.widget.PasteEditText>
+
+ 		        <ImageView
+ 		            android:id="@+id/iv_emoticons_normal"
+ 		            android:layout_width="24dip"
+ 		            android:layout_height="24dip"
+ 		            android:layout_alignParentRight="true"
+ 		            android:layout_centerVertical="true"
+ 		            android:layout_gravity="center_vertical|right"
+ 		            android:layout_margin="1dip"
+ 		            android:scaleType="fitCenter"
+ 		            android:src="@drawable/icon_chat_emoji_normal"
+ 		            android:visibility="gone" />
+
+ 		        <ImageView
+ 		            android:id="@+id/iv_emoticons_checked"
+ 		            android:layout_width="24dip"
+ 		            android:layout_height="24dip"
+ 		            android:layout_alignParentRight="true"
+ 		            android:layout_centerVertical="true"
+ 		            android:layout_gravity="center_vertical|right"
+ 		            android:layout_margin="1dip"
+ 		            android:scaleType="fitCenter"
+ 		            android:src="@drawable/icon_chat_emoji_checked"
+ 		            android:visibility="gone" />
+ 		    </RelativeLayout>
+
+ 		    <Button
+ 		        android:id="@+id/circle_friends_btn_send_comment"
+ 		        android:layout_width="65dip"
+ 		        android:layout_height="32dip"
+ 		        android:layout_marginLeft="4dp"
+ 		        android:layout_marginRight="10dp"
+ 		        android:background="@drawable/btn_sendmsg_bg"
+ 		        android:onClick="sendComment"
+ 		        android:text="发送" />
+ 		</LinearLayout>
+
+ 		</LinearLayout>
+</RelativeLayout>

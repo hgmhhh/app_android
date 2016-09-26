@@ -1,0 +1,22 @@
+package com.wemolian.app.wml.profile;
+
+import android.os.Bundle;
+
+import com.wemolian.app.R;
+import com.wemolian.app.activity.BaseActivity;
+
+/**
+ * 消息提醒设置
+ * @author zhangyun
+ *
+ */
+public class ProfileSettingRemindActivity extends BaseActivity {
+
+	@Override
+	protected void onCreate(Bundle arg0) {
+		// TODO Auto-generated method stub
+		super.onCreate(arg0);
+		setContentView(R.layout.activity_msg_remind);
+		setStatus(findViewById(R.id.title));
+	}
+}

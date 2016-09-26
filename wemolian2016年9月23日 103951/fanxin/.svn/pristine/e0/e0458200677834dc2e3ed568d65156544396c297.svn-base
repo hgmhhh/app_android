@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#fefefe"
+    android:onClick="replyComment" >
+    <TextView 
+        android:id="@+id/tv_circle_comment_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="张云"
+        android:textColor="#FF45C01A"/>
+    <TextView 
+        android:id="@+id/tv_circle_comment_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"/>
+    <TextView 
+        android:id="@+id/tv_circle_comment_friend_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="张云"
+        android:textColor="#FF45C01A"/>
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="："/>
+    <TextView 
+        android:id="@+id/tv_circle_comment_friend_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:text="评论内容"/>
+
+</LinearLayout>

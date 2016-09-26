@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ebebeb"
+    android:orientation="vertical" >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="2dp"
+        android:text="说点什么吧"
+        android:gravity="center" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:background="#DBDBDB" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20px"
+                android:layout_marginRight="20px"
+                android:background="@drawable/circle_search_bg" >
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="交个朋友吧"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px"
+                    android:singleLine="true" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="#DBDBDB" />
+
+    <RelativeLayout
+        android:id="@+id/rl_friens_msg"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/iv_headimg"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/default_useravatar" />
+
+        <LinearLayout
+            android:id="@+id/ll_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@id/iv_headimg"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_friend_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="张云"
+                android:textColor="#353535"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_addfriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:background="@drawable/background_add_new_friends_group"
+            android:gravity="center"
+            android:text="邀请好友" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_search_no_friend"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="用户不存在"
+            android:textColor="#353535"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

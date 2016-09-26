@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/re_integral"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:onClick="onTabClicked"
+            android:padding="3dp" >
+            <ImageView
+                android:id="@+id/profile_iv_expression_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#4a4a58" />
+            </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="center_vertical" >
+
+            <Button
+                android:id="@+id/profile_btn_expression_download"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30px"
+                android:background="@drawable/experssion_download_bg"
+                android:gravity="center"
+                android:text="下载"
+                android:textColor="@color/text_color"
+                android:textSize="24px" />
+
+            <TextView
+                android:id="@+id/profile_tv_expression_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/profile_btn_expression_download"
+                android:layout_alignBottom="@+id/profile_btn_expression_download"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="11dp"
+                android:background="#ffffff"
+                android:text="表情"
+                android:textSize="36px" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+	<TextView android:layout_width="match_parent"
+	    android:layout_height="1px"
+	    android:background="#ebebe8"/>
+</LinearLayout>

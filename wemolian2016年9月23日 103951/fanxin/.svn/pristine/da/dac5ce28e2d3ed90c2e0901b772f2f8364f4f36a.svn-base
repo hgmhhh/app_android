@@ -1,0 +1,309 @@
+package com.wemolian.app.wml;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.baidu.platform.comapi.map.o;
+import com.sun.javafx.iio.ImageStorage.ImageType;
+import com.wemolian.app.R;
+import com.wemolian.app.R.drawable;
+import com.wemolian.app.WeMoLianApplication;
+import com.wemolian.app.domain.User;
+import com.wemolian.app.entity.LocalDBKey;
+import com.wemolian.app.utils.SplitString;
+import com.wemolian.app.video.util.ImageItem;
+import com.wemolian.app.widget.photoview.PhotoView;
+import com.wemolian.app.wml.circle.adapter.CircleFriendsAdapter;
+import com.wemolian.app.wml.circle.zoom.ViewPagerFixed;
+import com.wemolian.app.wml.entity.Data;
+import com.wemolian.app.wml.others.LocalUserInfo;
+import com.wemolian.app.zxing.android.CaptureActivity;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroup;
+import android.view.WindowId;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+/**
+ * @author 张云
+ *
+ */
+public class FragmentFunc extends Fragment{
+	private static final int REQUEST_CODE_SCAN = 0x0000;
+	/**
+	 * 轮播图
+	 */
+	private ViewPagerFixed vpf_pager;
+	private MyPageAdapter adapter;
+	private ArrayList<ImageItem> tempSelectBitmap = new ArrayList<ImageItem>();
+	private ArrayList<View> listImages = new ArrayList<View>();
+	ImageView page1;
+	ImageView page2;
+	ImageView page3;
+	Drawable agu;
+	Drawable agt;
+//	private ImageView iv_FuncCarouselImages;
+	/**
+	 * 新家生活
+	 */
+	private LinearLayout ll_FuncNewLife;
+	/**
+	 * 活动入口
+	 */
+	private LinearLayout ll_FuncActivityEntry;
+	/**
+	 * 划一划
+	 */
+	private LinearLayout ll_FuncHuaYiHua;
+	/**
+	 * 扫一扫
+	 */
+	private LinearLayout ll_FuncScan;
+	
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_func, container,false);
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		// 防止被T后，没点确定按钮然后按了home键，长期在后台又进app导致的crash
+        if (savedInstanceState != null
+                && savedInstanceState.getBoolean("isConflict", false))
+            return;
+        page1 = (ImageView) getView().findViewById(R.id.iv_page1);
+        page2 = (ImageView) getView().findViewById(R.id.iv_page2);
+        page3 = (ImageView) getView().findViewById(R.id.iv_page3);
+        agu = getResources().getDrawable(R.drawable.agu);
+        agt = getResources().getDrawable(R.drawable.agt);
+        ll_FuncNewLife = (LinearLayout) getView().findViewById(R.id.ll_func_new_life);
+        ll_FuncActivityEntry = (LinearLayout) getView().findViewById(R.id.ll_func_activity_entry);
+        ll_FuncHuaYiHua = (LinearLayout) getView().findViewById(R.id.ll_func_huayihua);
+        ll_FuncScan = (LinearLayout) getView().findViewById(R.id.ll_func_scan);
+        vpf_pager = (ViewPagerFixed) getView().findViewById(R.id.vpf_func_carousel_images);
+        
+        listImages = new ArrayList<View>();
+        DisplayMetrics  dm = new DisplayMetrics();    
+        //取得窗口属性    
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);    
+           
+        //窗口的宽度    
+        int screenWidth = dm.widthPixels;    
+           
+        //窗口高度    
+        int screenHeight = dm.heightPixels;           
+        getImages();
+        for (int i = 0; i < tempSelectBitmap.size(); i++) {
+        Bitmap bm = tempSelectBitmap.get(i).getBitmap();
+        PhotoView img = new PhotoView(false,getActivity());
+//		img.setBackgroundColor(0xff000000);
+		img.setImageBitmap(bm);
+		img.setScaleType(ScaleType.CENTER_INSIDE);
+		img.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		img.setMaxHeight(screenHeight);
+		img.setMinimumHeight(screenHeight);
+		img.setMaxWidth(screenWidth);
+		img.setMinimumWidth(screenWidth);
+        listImages.add(img);
+        }
+        adapter = new MyPageAdapter(listImages);
+        vpf_pager.setAdapter(adapter);
+        vpf_pager.setPageMargin((int)getResources().getDimensionPixelOffset(R.dimen.ui_10_dip));
+        
+        ll_FuncNewLife.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "新家生活功能正在开发中\n敬请期待……", Toast.LENGTH_SHORT).show();
+			}
+		});
+        ll_FuncActivityEntry.setOnClickListener(new OnClickListener() {
+        	
+        	@Override
+        	public void onClick(View v) {
+				Toast.makeText(getActivity(), "活动入口功能正在开发中\n敬请期待……", Toast.LENGTH_SHORT).show();
+        		
+        	}
+        });
+        ll_FuncHuaYiHua.setOnClickListener(new OnClickListener() {
+        	
+        	@Override
+        	public void onClick(View v) {
+				Toast.makeText(getActivity(), "划一划功能正在开发中\n敬请期待……", Toast.LENGTH_SHORT).show();
+        		
+        	}
+        });
+        ll_FuncScan.setOnClickListener(new OnClickListener() {
+        	
+        	@Override
+        	public void onClick(View v) {
+//        		Intent intent = new Intent(getActivity(), QRCodeActivity.class);
+//        		startActivity(intent);
+        		Intent intent = new Intent(getActivity(),
+						CaptureActivity.class);
+//				startActivityForResult(intent, REQUEST_CODE_SCAN);
+				startActivity(intent);
+        	}
+        });
+	}
+	
+	private void getImages() {
+//		Data data = (Data) CircleFriendsAdapter.imageDataMap.get(String.valueOf(id));
+//		
+//		String imagePath = data.getImagesName();
+//		List<String> images = SplitString.splitToString(data.getImagesName());
+//		User u = WeMoLianApplication.getInstance().getUserInfo(LocalDBKey.USER_COLUMN_NAME_HEADIMG);
+//		List<String> images = new ArrayList<String>();
+//		images.add(u.getHeadImg());
+//		images.add(u.getHeadImg());
+//		images.add(u.getHeadImg());
+//		for (String image : images) {
+//			ImageItem imageItem = new ImageItem();
+////			imageItem.setImagePath(imagePath + image);
+//			imageItem.setImagePath("/sdcard/wemolian/071309330184.png" + image);
+//			tempSelectBitmap.add(imageItem);
+//		}
+		
+		for (int i = 1; i <= 3; i++) {
+			ImageItem imageItem = new ImageItem();
+			String imgPath = LocalUserInfo.getInstance(getActivity()).getUserInfo(LocalDBKey.USER_COLUMN_NAME_HEADIMG);
+//			imageItem.setImagePath("file:///android_asset/func_image" + i);
+			String[] str = imgPath.split("/");
+			String imgName = str[str.length - 1];
+			imageItem.setImagePath("/sdcard/wemolian/" + imgName);
+			tempSelectBitmap.add(imageItem);
+		}
+	}
+	
+	
+//	@Override
+//	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//		// TODO Auto-generated method stub
+//		super.onActivityResult(requestCode, resultCode, data);
+//		// 扫描二维码/条码回传
+//				if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
+//					if (data != null) {
+//
+//						String content = data.getStringExtra("codedContent");
+//						Bitmap bitmap = data.getParcelableExtra("codedBitmap");
+//
+////						qrCoded.setText("解码结果： \n" + content);
+////						qrCodeImage.setImageBitmap(bitmap);
+//					}
+//				}
+//	}
+	
+	
+	class MyPageAdapter extends PagerAdapter {
+
+		
+		
+		
+		private ArrayList<View> listViews;
+
+		int imgPage;
+		boolean isFirstLoad = true;
+		private int size;
+		int i = 0;
+		public MyPageAdapter(ArrayList<View> listViews) {
+			this.listViews = listViews;
+			size = listViews == null ? 0 : listViews.size();
+		}
+
+		public void setListViews(ArrayList<View> listViews) {
+			this.listViews = listViews;
+			size = listViews == null ? 0 : listViews.size();
+		}
+
+		public int getCount() {
+			return size;
+		}
+
+		public int getItemPosition(Object object) {
+			return POSITION_NONE;
+		}
+
+		public void destroyItem(View arg0, int arg1, Object arg2) {
+			if(arg1 == 2){
+				imgPage = 0;
+				
+			}else if(arg1 == 0){
+				imgPage = 2;
+			}
+			setPageTag();
+			isFirstLoad = false;
+			((ViewPagerFixed) arg0).removeView(listViews.get(arg1 % size));
+		}
+
+		public void finishUpdate(View view) {
+		}
+
+		public Object instantiateItem(View arg0, int arg1) {
+			imgPage = 1;
+			
+			try {
+				((ViewPagerFixed) arg0).addView(listViews.get(arg1 % size), 0);
+
+			} catch (Exception e) {
+			}
+			setPageTag();
+			i++;
+			if(i >= 2){
+				isFirstLoad =false;
+				i = 5;
+			}
+			return listViews.get(arg1 % size);
+		}
+
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			return arg0 == arg1;
+		}
+		public void setPageTag(){
+			if(imgPage == 0){
+				page1.setImageDrawable(agu);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agt);
+			}else if(imgPage == 1){
+				page1.setImageDrawable(agt);
+				page2.setImageDrawable(agu);
+				page3.setImageDrawable(agt);
+			}else if(imgPage == 2){
+				page1.setImageDrawable(agt);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agu);
+			}
+			if(isFirstLoad){
+				page1.setImageDrawable(agu);
+				page2.setImageDrawable(agt);
+				page3.setImageDrawable(agt);
+			}
+		}
+
+	}
+
+	
+}

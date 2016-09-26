@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fefefe" >
+    
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/circle_weshop_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/circle_iv_usericon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:background="#4a4a58" />
+
+            <TextView
+                android:id="@+id/circle_tv_circle_weshop_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/circle_tv_weshop_usercname"
+                android:layout_below="@+id/circle_tv_weshop_usercname"
+                android:layout_marginRight="40dp"
+                android:text="闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品闲置用品"
+                android:textColor="#232323"
+                android:textSize="36px" />
+
+            <TextView
+                android:id="@+id/circle_tv_weshop_usercname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/circle_iv_usericon"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/circle_iv_usericon"
+                android:text="张云"
+                android:textColor="#232323"
+                android:textSize="40px" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+		
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/circle_weshop_album1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="80dp" >
+
+            <ImageView
+                android:id="@+id/circle_weshop_image1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="20px"
+                android:background="#4a4a58" />
+
+            <ImageView
+                android:id="@+id/circle_weshop_image2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:background="#4a4a58" />
+           <ImageView
+                android:id="@+id/circle_weshop_image3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="20px"
+                android:background="#4a4a58" />
+        </LinearLayout>
+        
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="80dp"  >
+
+        <ImageView
+            android:id="@+id/circle_mianmian_image4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+
+        <ImageView
+            android:id="@+id/circle_weshop_image5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+
+        <ImageView
+            android:id="@+id/circle_weshop_image6"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:layout_marginLeft="80dp" >
+
+        <ImageView
+            android:id="@+id/circle_weshop_image7"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+
+        <ImageView
+            android:id="@+id/circle_weshop_image8"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+
+        <ImageView
+            android:id="@+id/circle_weshop_image9"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="20px"
+            android:background="#4a4a58" />
+    </LinearLayout>
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+            android:id="@+id/circle_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="20px"
+            android:layout_toRightOf="@id/iv_avatar"
+            android:text="时间"
+            android:textColor="#b2b1b1"
+            android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/circle_iv_comment_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20px"
+        android:onClick="showWeshopCommentGroup"
+        android:src="@drawable/circle_iv_comment_icon" />
+    </RelativeLayout>
+</LinearLayout>

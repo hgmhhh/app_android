@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/common_top_bar_color" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:onClick="back"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/top_bar_back" />
+
+            <View
+                android:id="@+id/view_temp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@id/iv_back"
+                android:background="#14191A" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="隐私"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_bg_fff_color"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="20dp">
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="加我为好友时需要验证"
+                android:textSize="16sp"
+                android:textColor="@color/text_black_color"/>
+            <CheckBox 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/buttonTypeCheckBox"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:background="#ebebeb"/>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/common_bg_fff_color"
+            android:paddingLeft="20dp">
+            <TextView 
+               android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="向我推荐联系人好友"
+                android:textColor="@color/text_black_color"
+                android:textSize="16sp"/>
+          <CheckBox 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/buttonTypeCheckBox"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:background="#ebebeb"/>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/common_bg_fff_color"
+            android:paddingLeft="20dp">
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="通过手机号搜索到我"
+                android:textColor="@color/text_black_color"
+                android:textSize="16sp"/>
+           <CheckBox 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/buttonTypeCheckBox"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:background="#ebebeb"/>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@color/common_bg_fff_color"
+            android:paddingLeft="20dp">
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="允许陌生人查看圈子"
+                android:textColor="@color/text_black_color"
+                android:textSize="16sp"/>
+            <CheckBox 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/buttonTypeCheckBox"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#ebebeb"/>
+        <LinearLayout 
+            android:id="@+id/ll_who_can_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/common_bg_fff_color"
+            android:paddingLeft="20dp">
+            <TextView 
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="谁能看我的个人空间"
+                android:textColor="@color/text_black_color"
+                android:textSize="16sp"/>
+            
+            <ImageView 
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="25dp"
+                android:visibility="visible"
+                android:background="@drawable/arrow_right"/>
+        </LinearLayout>
+    </LinearLayout>
+    
+    
+    
+    
+</LinearLayout>

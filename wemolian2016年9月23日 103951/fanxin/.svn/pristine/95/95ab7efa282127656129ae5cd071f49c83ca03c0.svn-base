@@ -1,0 +1,104 @@
+package com.wemolian.app.wml.friends;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.wemolian.app.R;
+import com.wemolian.app.activity.BaseActivity;
+import com.wemolian.app.utils.LocaltionManager;
+import com.wemolian.app.wml.entity.Point;
+import com.wemolian.app.wml.friends.adapter.NearbyUserAdapter;
+import com.wemolian.app.wml.others.AutoListView;
+import com.wemolian.app.wml.profile.ProfileCollectionActivity;
+import com.wemolian.app.wml.profile.ProfileCollectionDetailActivity;
+
+/**
+ * 附近的人
+ * @author zhangyun
+ *
+ */
+public class NearbyUserActivity extends BaseActivity {
+
+	private AutoListView lv_list;
+	private NearbyUserAdapter nearbyUserAdapter; 
+	private LocationManager locationManager;
+	private String locationProvider; 
+	private Double lat;
+	private Double lon;
+	private String region;
+	private String address;
+	private List<Point> list = new ArrayList<Point>();
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_nearby_user);
+		setStatus(findViewById(R.id.title));
+		lv_list = (AutoListView) findViewById(R.id.lv_list);
+//		getLocaltionManager();
+		Map<String, Object> map = LocaltionManager.getLocaltion(this);
+		lat = (Double) map.get("lat");
+		lon = (Double) map.get("lon");
+		region = (String) map.get("region");
+		address = (String) map.get("address");
+		getLocation();
+		nearbyUserAdapter = new NearbyUserAdapter(this, list);
+		lv_list.setAdapter(nearbyUserAdapter);
+		nearbyUserAdapter.notifyDataSetChanged();
+		initListener();
+	}
+	
+	
+	
+ 
+	    private void initListener() {
+	    	
+	    	
+	    	lv_list.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Toast.makeText(NearbyUserActivity.this, "用户为：" + view.getTag(), Toast.LENGTH_SHORT).show();
+				}
+			});
+	}
+
+
+
+
+		/** 
+	     * 显示地理位置经度和纬度信息 
+	     * @param location 
+	     */  
+	    private void getLocation(){  
+	        String locationStr = "纬度：" + lat +"\n"   
+	                + "经度：" + lon +"\n" + "地区：" + region +"\n"  + "地址： " + address; 
+	        Toast.makeText(this, locationStr, Toast.LENGTH_SHORT).show();
+	        for(int i = 0;i < 10; i ++){
+	        	Point p = new Point();
+	        	p.setDistance(i + ".0公里");
+	        	p.setUserCName("附近的人" + i);
+	        	p.setExternalUse(i + "");
+	        	list.add(p);
+	        }
+	        
+	        
+//	        tv_showLocaltion.setText(locationStr);  
+	    }  
+	    
+}

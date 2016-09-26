@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_partner"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9fc"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_top_bar"
+        android:background="@color/common_top_bar_color" >
+	<RelativeLayout android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="5dp"
+	    >
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:onClick="back"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/top_bar_back" />
+
+        <View
+            android:id="@+id/view_temp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/iv_back"
+            android:background="#14191A" />
+
+        <Button
+            android:id="@+id/btn_add_mianmian_circle_sending"
+            android:layout_width="85dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="36px"
+            android:background="@null"
+            android:text="发表"
+            android:textColor="#f9f9fc" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="微默联"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/circle_mianmian_ll_bg" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:text="分类" />
+			<TextView 
+			    android:layout_height="match_parent"
+			    android:layout_width="0.5dp"
+			    android:background="#ebebe8"/>
+            <LinearLayout 
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp">
+                <Spinner 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="@android:layout/simple_spinner_dropdown_item"
+           			android:entries="@array/first"/>
+                <TextView
+			    android:layout_height="match_parent"
+			    android:layout_width="0.5dp"
+			    android:layout_weight="0"
+			    android:background="#ebebe8"/>
+                <ImageView 
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/icon_spinner_normal"/>
+            </LinearLayout>
+            <TextView 
+			    android:layout_height="match_parent"
+			    android:layout_width="0.5dp"
+			    android:background="#ebebe8"/>
+            <LinearLayout 
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp">
+                <Spinner 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="@android:layout/simple_spinner_dropdown_item"
+           			android:entries="@array/first"/>
+            </LinearLayout>
+            <TextView 
+			    android:layout_height="match_parent"
+			    android:layout_width="0.5dp"
+			    android:background="#ebebe8"/>
+            <LinearLayout 
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1">
+                <Spinner 
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    style="@android:layout/simple_spinner_dropdown_item"
+           			android:entries="@array/first"/>
+            </LinearLayout>
+        </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:background="#0fdddee2"
+        android:orientation="vertical" >
+        <EditText
+            android:id="@+id/edt_add_mianmian_circle_detail"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="这一刻的想法..." />
+
+        <GridView
+            android:id="@+id/gv_addfriend_imglist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="3dp"
+            android:numColumns="4"
+            android:scrollbars="none"
+            android:verticalSpacing="5dp" >
+        </GridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:src="@drawable/jy_drltsz_btn_addperson" />
+
+        <ImageView
+            android:id="@+id/iv_del"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:src="@drawable/icon_btn_deleteperson" />
+    </LinearLayout>
+
+</LinearLayout>

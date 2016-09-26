@@ -1,0 +1,20 @@
+package com.wemolian.test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Test {
+	public static void main(String[] args) {
+		System.out.println(1);
+		int s = -500;
+//		if(s > 0 && s<=1500){
+//			System.out.println(1);
+//		}else{
+//			System.out.println(2);
+//		}
+	}
+	
+	
+	
+	
+}
